@@ -1,0 +1,64 @@
+{
+    "name": "philiprehberger/laravel-settings",
+    "description": "Type-safe, cached application settings stored in the database with a simple key-value API.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "settings",
+        "configuration",
+        "key-value",
+        "database"
+    ],
+    "authors": [
+        {
+            "name": "Philip Rehberger",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/contracts": "^11.0|^12.0",
+        "illuminate/database": "^11.0|^12.0",
+        "illuminate/support": "^11.0|^12.0",
+        "illuminate/cache": "^11.0|^12.0",
+        "illuminate/console": "^11.0|^12.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0|^10.0",
+        "phpunit/phpunit": "^10.5|^11.0",
+        "laravel/pint": "^1.0",
+        "phpstan/phpstan": "^1.10",
+        "phpstan/extension-installer": "^1.3",
+        "phpstan/phpstan-phpunit": "^1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhilipRehberger\\Settings\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PhilipRehberger\\Settings\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PhilipRehberger\\Settings\\SettingsServiceProvider"
+            ],
+            "aliases": {
+                "Settings": "PhilipRehberger\\Settings\\Facades\\Settings"
+            }
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
