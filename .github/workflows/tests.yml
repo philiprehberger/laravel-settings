@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - 'feature/**'
+    tags:
+      - "v*"
   pull_request:
     branches:
       - main
@@ -112,3 +114,17 @@ jobs:
 
       - name: Check code style
         run: vendor/bin/pint --test
+
+  publish:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [test, lint, phpstan]
+    name: Publish to Packagist
+
+    steps:
+      - name: Notify Packagist
+        run: |
+          curl -XPOST \
+            -H 'content-type:application/json' \
+            "https://packagist.org/api/update-package?username=${{ secrets.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_TOKEN }}" \
+            -d '{"repository":{"url":"https://github.com/${{ github.repository }}"}}'
