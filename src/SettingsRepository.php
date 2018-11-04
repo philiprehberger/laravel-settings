@@ -15,7 +15,7 @@ class SettingsRepository
     /**
      * Fetch all rows, optionally filtered to a single user, as a raw collection.
      *
-     * @return Collection<int, object>
+     * @return Collection<int, \stdClass>
      */
     public function all(?int $userId = null): Collection
     {
@@ -45,7 +45,7 @@ class SettingsRepository
 
         $row = $query->first();
 
-        return $row !== false ? $row : null;
+        return $row;
     }
 
     /**
