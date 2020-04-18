@@ -3,6 +3,7 @@
 namespace PhilipRehberger\Settings\Tests;
 
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use PhilipRehberger\Settings\Facades\Settings;
 use PhilipRehberger\Settings\SettingsServiceProvider;
 
 abstract class TestCase extends OrchestraTestCase
@@ -15,7 +16,7 @@ abstract class TestCase extends OrchestraTestCase
     protected function getPackageAliases($app): array
     {
         return [
-            'Settings' => \PhilipRehberger\Settings\Facades\Settings::class,
+            'Settings' => Settings::class,
         ];
     }
 
