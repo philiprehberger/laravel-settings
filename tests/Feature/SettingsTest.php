@@ -302,6 +302,121 @@ class SettingsTest extends TestCase
     }
 
     // -------------------------------------------------------------------------
+    // increment / decrement
+    // -------------------------------------------------------------------------
+
+    public function test_increment_creates_key_when_missing(): void
+    {
+        $result = Settings::increment('counter');
+
+        $this->assertSame(1, $result);
+        $this->assertSame(1, Settings::get('counter'));
+    }
+
+    public function test_increment_adds_to_existing_int(): void
+    {
+        Settings::set('counter', 10);
+
+        $result = Settings::increment('counter', 5);
+
+        $this->assertSame(15, $result);
+        $this->assertSame(15, Settings::get('counter'));
+    }
+
+    public function test_increment_works_with_float(): void
+    {
+        Settings::set('score', 1.5);
+
+        $result = Settings::increment('score', 0.3);
+
+        $this->assertSame(1.8, $result);
+        $this->assertSame(1.8, Settings::get('score'));
+    }
+
+    public function test_decrement_creates_key_when_missing(): void
+    {
+        $result = Settings::decrement('counter');
+
+        $this->assertSame(-1, $result);
+        $this->assertSame(-1, Settings::get('counter'));
+    }
+
+    public function test_decrement_subtracts_from_existing_int(): void
+    {
+        Settings::set('counter', 10);
+
+        $result = Settings::decrement('counter', 3);
+
+        $this->assertSame(7, $result);
+        $this->assertSame(7, Settings::get('counter'));
+    }
+
+    public function test_decrement_works_with_float(): void
+    {
+        Settings::set('score', 5.0);
+
+        $result = Settings::decrement('score', 1.5);
+
+        $this->assertSame(3.5, $result);
+        $this->assertSame(3.5, Settings::get('score'));
+    }
+
+    // -------------------------------------------------------------------------
+    // getMany / setMany
+    // -------------------------------------------------------------------------
+
+    public function test_get_many_returns_associative_array(): void
+    {
+        Settings::set('app.name', 'My App');
+        Settings::set('app.debug', true);
+
+        $result = Settings::getMany(['app.name', 'app.debug']);
+
+        $this->assertSame([
+            'app.name' => 'My App',
+            'app.debug' => true,
+        ], $result);
+    }
+
+    public function test_get_many_returns_null_for_missing_keys(): void
+    {
+        Settings::set('app.name', 'My App');
+
+        $result = Settings::getMany(['app.name', 'missing.key']);
+
+        $this->assertSame([
+            'app.name' => 'My App',
+            'missing.key' => null,
+        ], $result);
+    }
+
+    public function test_set_many_stores_multiple_values(): void
+    {
+        Settings::setMany([
+            'app.name' => 'Bulk App',
+            'app.debug' => false,
+            'pagination.per_page' => 50,
+        ]);
+
+        $this->assertSame('Bulk App', Settings::get('app.name'));
+        $this->assertFalse(Settings::get('app.debug'));
+        $this->assertSame(50, Settings::get('pagination.per_page'));
+    }
+
+    public function test_set_many_overwrites_existing_values(): void
+    {
+        Settings::set('app.name', 'Old');
+
+        Settings::setMany([
+            'app.name' => 'New',
+            'app.locale' => 'en',
+        ]);
+
+        $this->assertSame('New', Settings::get('app.name'));
+        $this->assertSame('en', Settings::get('app.locale'));
+    }
+
+    // -------------------------------------------------------------------------
     // Overwrite
     // -------------------------------------------------------------------------
 

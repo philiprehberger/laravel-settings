@@ -91,6 +91,61 @@ class Settings
     }
 
     /**
+     * Retrieve multiple settings at once.
+     *
+     * @param  array<int, string>  $keys
+     * @return array<string, mixed>
+     */
+    public function getMany(array $keys): array
+    {
+        $result = [];
+
+        foreach ($keys as $key) {
+            $result[$key] = $this->get($key);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Set multiple settings at once.
+     *
+     * @param  array<string, mixed>  $values
+     */
+    public function setMany(array $values): void
+    {
+        foreach ($values as $key => $value) {
+            $this->set($key, $value);
+        }
+    }
+
+    /**
+     * Increment a numeric setting value by the given amount.
+     *
+     * If the key does not exist, it is created with the given amount.
+     */
+    public function increment(string $key, int|float $amount = 1): int|float
+    {
+        $current = $this->get($key, 0);
+
+        $new = $current + $amount;
+
+        $this->set($key, $new);
+
+        return $new;
+    }
+
+    /**
+     * Decrement a numeric setting value by the given amount.
+     *
+     * If the key does not exist, it is created with the negated amount.
+     */
+    public function decrement(string $key, int|float $amount = 1): int|float
+    {
+        return $this->increment($key, -$amount);
+    }
+
+    /**
      * Delete every setting from the database and clear the cache.
      */
     public function flush(): void
