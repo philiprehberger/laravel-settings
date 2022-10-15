@@ -6,16 +6,6 @@
 
 Type-safe, cached application settings stored in the database with a simple key-value API.
 
-### Features
-
-- Type-safe storage: `string`, `int`, `float`, `bool`, `array` / `json`
-- Single-collection cache strategy — one cache key for all settings, auto-invalidated on every write
-- Three-tier default resolution: database → `config('settings.defaults')` → argument default
-- Group filtering via dotted key conventions (`mail.host` belongs to group `mail`)
-- Per-user settings with isolated cache scopes
-- Artisan commands: `settings:list`, `settings:get`, `settings:set`
-- Laravel auto-discovery, publishes config and migration
-
 ## Requirements
 
 - PHP 8.2+
