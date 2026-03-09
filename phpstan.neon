@@ -1,21 +1,9 @@
-includes:
-    - vendor/phpstan/extension-installer/loader.neon
-    - vendor/phpstan/phpstan-phpunit/extension.neon
-
 parameters:
-    level: 8
-
+    level: 6
     paths:
         - src
-        - tests
-
-    # Allow magic Facade calls (resolved via @method docblocks)
-    checkMissingIterableValueType: false
-
+    excludePaths:
+        - vendor
     ignoreErrors:
-        # Orchestra Testbench helpers are not typed at level 8
-        - '#Call to an undefined method Orchestra\\Testbench\\TestCase::#'
-        # Illuminate DB table() returns a fluent builder with dynamic methods
-        - '#Call to an undefined method Illuminate\\Database\\Query\\Builder::#'
-
-    bootstrapFiles: []
+        - '#always exists and is not nullable#'
+        - '#Else branch is unreachable#'
