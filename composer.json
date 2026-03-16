@@ -10,6 +10,7 @@
         "key-value",
         "database"
     ],
+    "homepage": "https://github.com/philiprehberger/laravel-settings",
     "authors": [
         {
             "name": "Philip Rehberger",
@@ -58,6 +59,11 @@
         "allow-plugins": {
             "phpstan/extension-installer": true
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "lint": "vendor/bin/pint",
+        "analyse": "vendor/bin/phpstan analyse"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
