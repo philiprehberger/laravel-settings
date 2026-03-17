@@ -1,9 +1,8 @@
 # Laravel Settings
 
 [![Tests](https://github.com/philiprehberger/laravel-settings/actions/workflows/tests.yml/badge.svg)](https://github.com/philiprehberger/laravel-settings/actions/workflows/tests.yml)
-[![Latest Stable Version](https://poser.pugx.org/philiprehberger/laravel-settings/v/stable)](https://packagist.org/packages/philiprehberger/laravel-settings)
-[![License](https://poser.pugx.org/philiprehberger/laravel-settings/license)](LICENSE)
-[![PHP Version](https://img.shields.io/badge/php-%5E8.2-blue)](https://www.php.net/)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/philiprehberger/laravel-settings.svg)](https://packagist.org/packages/philiprehberger/laravel-settings)
+[![License](https://img.shields.io/github/license/philiprehberger/laravel-settings)](LICENSE)
 
 Type-safe, cached application settings stored in the database with a simple key-value API.
 
@@ -203,25 +202,6 @@ php artisan settings:set feature.enabled true --type=bool
 php artisan settings:set allowed.ips '["127.0.0.1"]' --type=array
 ```
 
-## Testing
-
-```bash
-composer install
-vendor/bin/phpunit
-```
-
-Static analysis:
-
-```bash
-vendor/bin/phpstan analyse
-```
-
-Code style:
-
-```bash
-vendor/bin/pint
-```
-
 ## Database Schema
 
 | Column       | Type            | Notes                                  |
@@ -235,6 +215,32 @@ vendor/bin/pint
 | `created_at` | timestamp       |                                        |
 | `updated_at` | timestamp       |                                        |
 
+## API
+
+| Method | Description |
+|--------|-------------|
+| `Settings::set(string $key, mixed $value, ?string $type)` | Store a value (type auto-detected) |
+| `Settings::get(string $key, mixed $default)` | Retrieve a value with optional default |
+| `Settings::has(string $key): bool` | Check if a key exists |
+| `Settings::forget(string $key)` | Remove a key |
+| `Settings::all(?string $group): Collection` | Get all settings, optionally filtered by group |
+| `Settings::flush()` | Remove all settings |
+| `Settings::setForUser(int $userId, string $key, mixed $value)` | Store a per-user value |
+| `Settings::getForUser(int $userId, string $key, mixed $default)` | Retrieve a per-user value |
+| `Settings::hasForUser(int $userId, string $key): bool` | Check per-user key existence |
+| `Settings::forgetForUser(int $userId, string $key)` | Remove a per-user key |
+| `Settings::allForUser(int $userId, ?string $group): Collection` | Get all per-user settings |
+| `Settings::flushForUser(int $userId)` | Remove all per-user settings |
+
+## Development
+
+```bash
+composer install
+vendor/bin/phpunit
+vendor/bin/pint --test
+vendor/bin/phpstan analyse
+```
+
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT
