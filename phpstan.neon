@@ -6,4 +6,3 @@ parameters:
         - vendor
     ignoreErrors:
         - '#always exists and is not nullable#'
-        - '#Else branch is unreachable#'
