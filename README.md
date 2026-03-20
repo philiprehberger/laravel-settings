@@ -6,20 +6,10 @@
 
 Type-safe, cached application settings stored in the database with a simple key-value API.
 
-## Features
-
-- Type-safe storage: `string`, `int`, `float`, `bool`, `array` / `json`
-- Single-collection cache strategy — one cache key for all settings, auto-invalidated on every write
-- Three-tier default resolution: database → `config('settings.defaults')` → argument default
-- Group filtering via dotted key conventions (`mail.host` belongs to group `mail`)
-- Per-user settings with isolated cache scopes
-- Artisan commands: `settings:list`, `settings:get`, `settings:set`
-- Laravel auto-discovery, publishes config and migration
-
 ## Requirements
 
-- PHP ^8.2
-- Laravel ^11.0 or ^12.0
+- PHP 8.2+
+- Laravel 11 or 12
 
 ## Installation
 
@@ -40,27 +30,7 @@ Optionally publish the config file:
 php artisan vendor:publish --tag=settings-config
 ```
 
-## Configuration
-
-`config/settings.php`:
-
-```php
-return [
-    'table' => 'settings',
-
-    'cache' => [
-        'enabled' => true,
-        'key'     => 'app_settings',
-        'ttl'     => 3600,          // seconds; null = forever
-    ],
-
-    'defaults' => [
-        // 'app.timezone' => 'UTC',
-    ],
-];
-```
-
-## Basic Usage
+## Usage
 
 ```php
 use PhilipRehberger\Settings\Facades\Settings;
@@ -95,7 +65,27 @@ Settings::all('mail');
 Settings::flush();
 ```
 
-## Type Casting
+### Configuration
+
+`config/settings.php`:
+
+```php
+return [
+    'table' => 'settings',
+
+    'cache' => [
+        'enabled' => true,
+        'key'     => 'app_settings',
+        'ttl'     => 3600,          // seconds; null = forever
+    ],
+
+    'defaults' => [
+        // 'app.timezone' => 'UTC',
+    ],
+];
+```
+
+### Type Casting
 
 Values are automatically cast back to their original type on retrieval.
 
@@ -119,7 +109,7 @@ Settings::set('tags', ['php', 'laravel']);
 Settings::get('tags'); // (array) ['php', 'laravel']
 ```
 
-## Default Fallback Chain
+### Default Fallback Chain
 
 When a key is not found in the database, `Settings::get()` resolves in this order:
 
@@ -136,7 +126,7 @@ When a key is not found in the database, `Settings::get()` resolves in this orde
 Settings::get('app.timezone', 'Europe/London');
 ```
 
-## Group Filtering
+### Group Filtering
 
 A "group" is everything before the first dot in the key name.
 
@@ -152,7 +142,7 @@ Settings::all('mail');
 // }
 ```
 
-## Per-User Settings
+### Per-User Settings
 
 Each user's settings are stored with a `user_id` and cached independently.
 
@@ -168,7 +158,7 @@ Settings::flushForUser($userId);
 
 Per-user settings are completely isolated from global settings. Two users can have different values for the same key, and both are independent from any global value stored without a `user_id`.
 
-## Cache
+### Cache
 
 All settings are cached as a single serialized `Collection` under one key (default: `app_settings`). This means every read after the first is served from the cache. Any write (`set`, `forget`, `flush`) immediately invalidates the cache so the next read re-hydrates from the database.
 
@@ -180,7 +170,7 @@ Disable caching entirely in `config/settings.php`:
 ],
 ```
 
-## Artisan Commands
+### Artisan Commands
 
 ```bash
 # List all settings
@@ -202,7 +192,7 @@ php artisan settings:set feature.enabled true --type=bool
 php artisan settings:set allowed.ips '["127.0.0.1"]' --type=array
 ```
 
-## Database Schema
+### Database Schema
 
 | Column       | Type            | Notes                                  |
 |--------------|-----------------|----------------------------------------|
