@@ -1,6 +1,6 @@
 {
     "name": "philiprehberger/laravel-settings",
-    "description": "Type-safe, cached application settings stored in the database with a simple key-value API.",
+    "description": "Type-safe, cached application settings stored in the database with a simple key-value API",
     "type": "library",
     "license": "MIT",
     "keywords": [
