@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.4] - 2026-03-18
+
+### Fixed
+- Add generic types to Facade `@method` PHPDoc for `all()` and `allForUser()` (`Collection<int, \stdClass>`)
+- Fix `SettingsRepository::all()` return type from `Collection<int, object>` to `Collection<int, \stdClass>`
+- Simplify `SettingsRepository::find()` — `first()` returns `object|null`, not `false`
+- Remove stale PHPStan ignored error pattern for unreachable else branch
+
+## [1.0.3] - 2026-03-18
+
+### Fixed
+- Widen phpstan-phpunit and extension-installer version constraints for PHPStan 2.x compatibility
+
+## [1.0.2] - 2026-03-17
+
+### Changed
+- Standardized package metadata, README structure, and CI workflow per package guide
+
+## [1.0.1] - 2026-03-16
+
+### Changed
+- Standardize composer.json: add type, homepage, scripts
+
 ## [1.0.0] - 2026-03-09
 
 ### Added
@@ -29,5 +52,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Laravel Pint code style enforcement
 - GitHub Actions CI matrix: PHP 8.2 / 8.3 / 8.4 × Laravel 11 / 12
 
-[Unreleased]: https://github.com/philiprehberger/laravel-settings/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/philiprehberger/laravel-settings/compare/v1.0.4...HEAD
+[1.0.4]: https://github.com/philiprehberger/laravel-settings/compare/v1.0.3...v1.0.4
+[1.0.3]: https://github.com/philiprehberger/laravel-settings/compare/v1.0.2...v1.0.3
+[1.0.2]: https://github.com/philiprehberger/laravel-settings/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/philiprehberger/laravel-settings/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/philiprehberger/laravel-settings/releases/tag/v1.0.0

@@ -4,6 +4,7 @@ namespace PhilipRehberger\Settings;
 
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\Collection;
+use stdClass;
 
 class SettingsRepository
 {
@@ -15,7 +16,7 @@ class SettingsRepository
     /**
      * Fetch all rows, optionally filtered to a single user, as a raw collection.
      *
-     * @return Collection<int, object>
+     * @return Collection<int, stdClass>
      */
     public function all(?int $userId = null): Collection
     {
@@ -43,9 +44,7 @@ class SettingsRepository
             $query->whereNull('user_id');
         }
 
-        $row = $query->first();
-
-        return $row !== false ? $row : null;
+        return $query->first();
     }
 
     /**
