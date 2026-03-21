@@ -6,7 +6,7 @@
 
 Type-safe, cached application settings stored in the database with a simple key-value API.
 
-## Features
+### Features
 
 - Type-safe storage: `string`, `int`, `float`, `bool`, `array` / `json`
 - Single-collection cache strategy — one cache key for all settings, auto-invalidated on every write
