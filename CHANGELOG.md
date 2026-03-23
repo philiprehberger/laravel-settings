@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-03-23
+
+### Changed
+- Remove non-standard Features section from README per template guide
+
 ## [1.1.0] - 2026-03-22
 
 ### Added
@@ -65,7 +70,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Laravel Pint code style enforcement
 - GitHub Actions CI matrix: PHP 8.2 / 8.3 / 8.4 × Laravel 11 / 12
 
-[Unreleased]: https://github.com/philiprehberger/laravel-settings/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/philiprehberger/laravel-settings/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/philiprehberger/laravel-settings/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/philiprehberger/laravel-settings/compare/v1.0.6...v1.1.0
 [1.0.6]: https://github.com/philiprehberger/laravel-settings/compare/v1.0.4...v1.0.6
 [1.0.4]: https://github.com/philiprehberger/laravel-settings/compare/v1.0.3...v1.0.4
