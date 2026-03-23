@@ -95,6 +95,39 @@ Settings::all('mail');
 Settings::flush();
 ```
 
+### Increment / Decrement
+
+```php
+Settings::set('login.count', 0);
+
+Settings::increment('login.count');          // 1
+Settings::increment('login.count', 5);       // 6
+Settings::decrement('login.count', 2);       // 4
+
+// Works with floats
+Settings::set('balance', 10.0);
+Settings::increment('balance', 1.5);         // 11.5
+
+// Creates the key if it doesn't exist
+Settings::increment('new.counter');           // 1
+Settings::decrement('new.gauge');             // -1
+```
+
+### Bulk Operations
+
+```php
+// Set multiple values at once
+Settings::setMany([
+    'app.name'   => 'My Portal',
+    'app.locale' => 'en',
+    'app.debug'  => false,
+]);
+
+// Get multiple values at once
+$values = Settings::getMany(['app.name', 'app.locale', 'app.debug']);
+// ['app.name' => 'My Portal', 'app.locale' => 'en', 'app.debug' => false]
+```
+
 ### Type Casting
 
 Values are automatically cast back to their original type on retrieval.
@@ -225,6 +258,10 @@ php artisan settings:set allowed.ips '["127.0.0.1"]' --type=array
 | `Settings::forget(string $key)` | Remove a key |
 | `Settings::all(?string $group): Collection` | Get all settings, optionally filtered by group |
 | `Settings::flush()` | Remove all settings |
+| `Settings::getMany(array $keys): array` | Retrieve multiple settings at once |
+| `Settings::setMany(array $values): void` | Store multiple settings at once |
+| `Settings::increment(string $key, int\|float $amount): int\|float` | Increment a numeric setting |
+| `Settings::decrement(string $key, int\|float $amount): int\|float` | Decrement a numeric setting |
 | `Settings::setForUser(int $userId, string $key, mixed $value)` | Store a per-user value |
 | `Settings::getForUser(int $userId, string $key, mixed $default)` | Retrieve a per-user value |
 | `Settings::hasForUser(int $userId, string $key): bool` | Check per-user key existence |
